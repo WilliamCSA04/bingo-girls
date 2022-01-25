@@ -18,12 +18,14 @@ export const meta: MetaFunction = () => {
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="description" content="Site feito para as streamers Myummi Fox, Liwphael e Misthy que fazem conteúdos em diversas plataformas"></meta>
         <meta name="robots" content="index, follow" />
+        <meta name="author" content="William Caetano" />
+
         <Meta />
         <Links />
       </head>
