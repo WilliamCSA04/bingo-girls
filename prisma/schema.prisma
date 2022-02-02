@@ -1,0 +1,20 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model streamers {
+  id               String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  alternative_text String
+  background_color String
+  image_endpoint   String
+  links            Json[]
+  name             String
+  twitch_name      String
+  uuid             String
+}
