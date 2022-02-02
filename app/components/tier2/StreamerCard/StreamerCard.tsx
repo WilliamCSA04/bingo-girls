@@ -3,7 +3,7 @@ import { Box, Heading, Icon, Image, Link, SimpleGrid, Text, VStack } from '@chak
 import { Card } from '../../tier1';
 import SocialIcon from '../SocialIcon';
 
-type Props = {
+export type Props = {
   src: string;
   alt: string;
   name: string;
