@@ -21,7 +21,7 @@ const socialRegex = /twitch|tiktok|youtube|facebook|instagram|twitter|linktr.ee/
 function StreamerLink({ link, text }: SocialType) {
   const icon = socialRegex.exec(link)?.[0] ?? '';
   return (
-    <HStack>
+    <HStack wrap="nowrap">
       <Link href={link} w="100%">
         <SocialIcon socialNetwork={icon} />
         <Text>{text}</Text>
