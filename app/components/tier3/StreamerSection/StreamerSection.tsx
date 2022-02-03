@@ -41,10 +41,11 @@ export default function StreamerSection() {
           Streamers
         </Heading>
       </VisuallyHidden>
-      <Flex justify="space-around">
-        {data.map((streamer) => (
-          <StreamerCard key={streamer.name} {...streamer} />
-        ))}
+      <Flex justify="space-around" wrap="wrap">
+        {data.map((streamer, index) => {
+          const mt = index ? 4 : 0;
+          return <StreamerCard key={streamer.name} mt={mt} {...streamer} />;
+        })}
       </Flex>
     </Section>
   );

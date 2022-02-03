@@ -1,6 +1,7 @@
 import { Heading, HStack, Image, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 
 import { Card } from '../../tier1';
+import type { CardProps } from '../../tier1';
 import SocialIcon from '../SocialIcon';
 
 export type Props = {
@@ -9,7 +10,7 @@ export type Props = {
   name: string;
   bg: string;
   social: SocialType[];
-};
+} & CardProps;
 
 type SocialType = {
   text: string;
@@ -32,11 +33,16 @@ function StreamerLink({ link, text }: SocialType) {
   );
 }
 
-export default function StreamerCard({ src, alt, name, social, bg }: Props) {
+export default function StreamerCard({ src, alt, name, social, bg, ...props }: Props) {
   return (
-    <Card w="300px" bg={bg} color="white">
+    <Card w={['280px', '300px']} bg={bg} color="white" {...props}>
       <VStack spacing={5}>
-        <Image boxSize="300px" src={src} fallbackSrc="https://via.placeholder.com/300/" alt={alt} />
+        <Image
+          boxSize={['280px', '300px']}
+          src={src}
+          fallbackSrc="https://via.placeholder.com/300/"
+          alt={alt}
+        />
         <VStack w="100%" px={5} pb={5} spacing={5}>
           <Heading as="h3">{name}</Heading>
           <SimpleGrid columns={2} spacing={4} w="100%">
