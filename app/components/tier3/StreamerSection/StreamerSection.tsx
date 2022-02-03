@@ -44,7 +44,7 @@ export default function StreamerSection() {
       <Flex justify="space-around" wrap="wrap">
         {data.map((streamer, index) => {
           const mt = index ? 4 : 0;
-          return <StreamerCard key={streamer.name} mt={mt} {...streamer} />;
+          return <StreamerCard key={streamer.name} mt={[mt, 0]} {...streamer} />;
         })}
       </Flex>
     </Section>
