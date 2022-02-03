@@ -15,7 +15,7 @@ export default function HomeHeader() {
   const { toggleColorMode } = useColorMode();
   const headerBg = useColorModeValue('pink.300', 'gray.900');
   return (
-    <Header mb="4" p={4} bg={headerBg}>
+    <Header mb="16" p={4} bg={headerBg}>
       <VisuallyHidden>
         <Heading as="h1">Bingo Girls</Heading>
       </VisuallyHidden>
