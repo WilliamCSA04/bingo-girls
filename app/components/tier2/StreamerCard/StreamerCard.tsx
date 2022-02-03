@@ -37,7 +37,7 @@ export default function StreamerCard({ src, alt, name, social, bg }: Props) {
     <Card w="300px" bg={bg} color="white">
       <VStack>
         <Image boxSize="300px" src={src} fallbackSrc="https://via.placeholder.com/300/" alt={alt} />
-        <VStack w="100%" p={5}>
+        <VStack w="100%" px={5} pb={5}>
           <Heading as="h3">{name}</Heading>
           <SimpleGrid columns={2} spacing={4} w="100%">
             {social.map(({ link, text }) => (
