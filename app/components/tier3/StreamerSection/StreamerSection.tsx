@@ -6,6 +6,7 @@ import { Section } from '../../tier0';
 import { StreamerCard } from '../../tier2';
 import type { StreamerCardProps } from '../../tier2';
 import dbClient from '~/db';
+import type { StreamersType } from '~/routes';
 
 export type Props = {
   data: StreamerCardProps[];
@@ -22,10 +23,9 @@ export const loader: LoaderFunction = async () => {
   return getStreamers();
 };
 
-type StreamersType = Awaited<ReturnType<typeof getStreamers>>;
-
 export default function StreamerSection() {
   const streamers = useLoaderData<StreamersType>();
+
   const data =
     streamers?.map((streamer) => ({
       name: streamer.name,
