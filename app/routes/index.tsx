@@ -1,6 +1,6 @@
 import type { LoaderFunction } from 'remix';
 
-import { StreamerSection } from '~/components';
+import { HomeHeader, StreamerSection } from '~/components';
 import dbClient from '~/db';
 
 const getStreamers = async () => {
@@ -19,7 +19,7 @@ export type StreamersType = Awaited<ReturnType<typeof getStreamers>>;
 export default function Index() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Welcome to Remix</h1>
+      <HomeHeader />
       <StreamerSection />
     </div>
   );
