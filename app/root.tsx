@@ -1,20 +1,20 @@
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration
-} from "remix";
-import type { MetaFunction } from "remix";
-import { ChakraProvider } from "@chakra-ui/react";
+import type { ThemeConfig } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, ColorModeScript } from '@chakra-ui/react';
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from 'remix';
+import type { MetaFunction } from 'remix';
 
-export const meta: MetaFunction = () => {
-  return { title: "Bingo Girls" };
+const config: ThemeConfig = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
 };
 
-        
-//TODO add <link rel="canonical" href="http://example.com/" />
+const theme = extendTheme({ config });
+
+export const meta: MetaFunction = () => {
+  return { title: 'Bingo Girls' };
+};
+
+// TODO add <link rel="canonical" href="http://example.com/" />
 
 export default function App() {
   return (
@@ -22,7 +22,10 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="description" content="Site feito para as streamers Myummi Fox, Liwphael e Misthy que fazem conteúdos em diversas plataformas"></meta>
+        <meta
+          name="description"
+          content="Site feito para as streamers Myummi Fox, Liwphael e Misthy que fazem conteúdos em diversas plataformas"
+        />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="William Caetano" />
 
@@ -30,12 +33,13 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Outlet />
         </ChakraProvider>
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
   );
