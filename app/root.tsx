@@ -1,5 +1,5 @@
 import type { ThemeConfig } from '@chakra-ui/react';
-import { ChakraProvider, extendTheme, ColorModeScript } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from 'remix';
 import type { MetaFunction } from 'remix';
 
@@ -34,7 +34,6 @@ export default function App() {
       </head>
       <body>
         <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Outlet />
         </ChakraProvider>
         <ScrollRestoration />
