@@ -32,6 +32,7 @@ export default function StreamerSection() {
       alt: streamer.alternative_text,
       src: streamer.image_endpoint,
       social: streamer.links as { link: string; text: string }[], // TODO: find out correct way to do this
+      bg: streamer.background_color,
     })) || [];
   return (
     <Section>

@@ -7,6 +7,7 @@ export type Props = {
   src: string;
   alt: string;
   name: string;
+  bg: string;
   social: SocialType[];
 };
 
@@ -29,9 +30,9 @@ function StreamerLink({ link, text }: SocialType) {
   );
 }
 
-export default function StreamerCard({ src, alt, name, social }: Props) {
+export default function StreamerCard({ src, alt, name, social, bg }: Props) {
   return (
-    <Card w="300px">
+    <Card w="300px" bg={bg} color="white">
       <VStack>
         <Image boxSize="300px" src={src} fallbackSrc="https://via.placeholder.com/300/" alt={alt} />
         <VStack w="100%" p={5}>
