@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Icon, Image, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Heading, HStack, Image, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 
 import { Card } from '../../tier1';
 import SocialIcon from '../SocialIcon';
@@ -21,12 +21,14 @@ const socialRegex = /twitch|tiktok|youtube|facebook|instagram|twitter|linktr.ee/
 function StreamerLink({ link, text }: SocialType) {
   const icon = socialRegex.exec(link)?.[0] ?? '';
   return (
-    <HStack wrap="nowrap">
-      <Link href={link} w="100%">
+    <Link href={link} w="100%">
+      <HStack alignItems="center">
         <SocialIcon socialNetwork={icon} />
-        <Text>{text}</Text>
-      </Link>
-    </HStack>
+        <Text as="span" fontSize="small">
+          {text}
+        </Text>
+      </HStack>
+    </Link>
   );
 }
 
