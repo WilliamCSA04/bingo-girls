@@ -1,5 +1,6 @@
 // import { getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
+export { getStorage } from 'firebase/storage';
 
 const {
   FIREBASE_API_KEY,

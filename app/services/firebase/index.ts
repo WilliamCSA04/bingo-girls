@@ -1,1 +1,1 @@
-export { app } from './firebase';
+export { app, getStorage } from './firebase';
