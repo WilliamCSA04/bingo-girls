@@ -1,5 +1,7 @@
 // import { getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
+
 export { getStorage } from 'firebase/storage';
 
 const {
@@ -21,7 +23,18 @@ const firebaseConfig = {
   appId: FIREBASE_APP_ID,
   measurementId: FIREBASE_MEASUREMENT_ID,
 };
+const app = initializeApp(firebaseConfig);
 
-export const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
+type path = string;
+type getFileResponse = ReturnType<typeof getDownloadURL>;
+
+export async function getFile(path: path): getFileResponse {
+  const a = ref(storage, path);
+  return getDownloadURL(a);
+}
 
 // const analytics = getAnalytics(app);
+
+export { default } from 'firebase/app';
