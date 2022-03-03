@@ -9,7 +9,7 @@ datasource db {
 }
 
 model streamers {
-  id               String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
   alternative_text String
   background_color String
   image_endpoint   String
