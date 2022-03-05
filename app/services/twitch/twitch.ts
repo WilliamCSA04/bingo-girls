@@ -1,10 +1,12 @@
 import invariant from 'tiny-invariant';
 
-invariant(process.env.TWITCH_API_BASE_URL, 'Missing twitch base url');
+invariant(process.env.TWITCH_API_HELIX, 'Missing twitch base url');
+invariant(process.env.TWITCH_API_OAUTH2, 'Missing twitch base url');
 invariant(process.env.TWITCH_CLIENT_ID, 'Missing twitch client id');
 invariant(process.env.TWITCH_APP_ACCESS_TOKEN, 'Missing twitch access token');
 
-const BASE_URL = process.env.TWITCH_API_BASE_URL;
+const BASE_URL = process.env.TWITCH_API_HELIX;
+const OAUTH2_URL = process.env.TWITCH_API_OAUTH2;
 const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
 const ACCESS_TOKEN = process.env.TWITCH_APP_ACCESS_TOKEN;
 
@@ -26,6 +28,17 @@ async function request(endpoint: FetchParamsType[0], init: FetchParamsType[1] = 
 type GetUsersParamsType = {
   logins: string[];
 };
+
+type GetToken = {
+  access_token: string;
+  expires_in: number;
+  token_type: string;
+};
+
+export async function getToken(): FetchReturnType {
+  const endpoint = `${OAUTH2_URL}/token?client_id=${CLIENT_ID}&client_secret=${ACCESS_TOKEN}&grant_type=client_credentials`;
+  return request(endpoint, { method: 'post' });
+}
 
 export async function getUsers({ logins = [] }: GetUsersParamsType): FetchReturnType {
   const url = `${BASE_URL}/users`;

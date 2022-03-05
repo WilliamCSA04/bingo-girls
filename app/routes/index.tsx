@@ -2,7 +2,7 @@ import type { LoaderFunction } from 'remix';
 
 import { HomeHeader, StreamerSection } from '~/components';
 import dbClient from '~/db';
-import { firebaseService } from '~/services';
+import { firebaseService, twitchService } from '~/services';
 
 const getStreamers = async () => {
   await dbClient.$connect();
@@ -18,7 +18,9 @@ const getStreamers = async () => {
   return Promise.all(data);
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  const a = await twitchService.getToken();
+  console.log(a);
   return getStreamers();
 };
 
