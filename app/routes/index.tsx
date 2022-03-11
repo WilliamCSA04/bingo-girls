@@ -3,6 +3,7 @@ import type { LoaderFunction } from 'remix';
 import { HomeHeader, StreamerSection } from '~/components';
 import dbClient from '~/db';
 import { firebaseService, twitchService } from '~/services';
+import type { GetTokenType, GetUsersType } from '~/services/twitch/twitch';
 
 const getStreamers = async () => {
   await dbClient.$connect();
@@ -19,9 +20,19 @@ const getStreamers = async () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const a = await twitchService.getToken();
-  console.log(a);
-  return getStreamers();
+  const resTokens = await twitchService.getToken();
+  const tokens = (await resTokens.json()) as GetTokenType;
+  const streamersFromDB = await getStreamers();
+  const logins = streamersFromDB.map((streamer) => streamer.twitch_name);
+  const resUsers = await twitchService.getUsers(
+    { logins },
+    { Authorization: `Bearer ${tokens.access_token}` }
+  );
+  const { data: users } = (await resUsers.json()) as GetUsersType;
+  return streamersFromDB.map((streamer) => {
+    const foundUser = users.find((user) => user.login === streamer.twitch_name);
+    return { ...foundUser, ...streamer };
+  });
 };
 
 export type StreamersType = Awaited<ReturnType<typeof getStreamers>>;
