@@ -34,7 +34,7 @@ export async function getToken(): FetchReturnType {
   return request(endpoint, { method: 'post' });
 }
 
-type User = {
+export type UserType = {
   id: string;
   login: string;
   display_name: string;
@@ -48,7 +48,7 @@ type User = {
 };
 
 export type GetUsersType = {
-  data: User[];
+  data: UserType[];
 };
 
 export async function getUsers(

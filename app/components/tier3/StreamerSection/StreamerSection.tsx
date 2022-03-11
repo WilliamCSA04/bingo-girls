@@ -4,18 +4,17 @@ import { Section } from '../../tier0';
 import { StreamerCard } from '../../tier2';
 import type { StreamerCardProps } from '../../tier2';
 import type { StreamersType } from '~/routes';
+import { UserType } from '~/services/twitch/twitch';
 
-export type Props = {
-  data: StreamerCardProps[];
-};
+type StreamersUsersType = (StreamersType[0] & UserType)[];
 
 export default function StreamerSection() {
-  const streamers = useLoaderData<StreamersType>();
+  const streamers = useLoaderData<StreamersUsersType>();
   const data =
     streamers?.map((streamer) => ({
       name: streamer.name,
       alt: streamer.alternative_text,
-      src: streamer.image_endpoint,
+      src: streamer.profile_image_url || streamer.image_endpoint,
       social: streamer.links as { link: string; text: string }[], // TODO: find out correct way to do this
       bg: streamer.background_color,
     })) || [];

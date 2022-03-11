@@ -19,7 +19,7 @@ const getStreamers = async () => {
   return Promise.all(data);
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   const resTokens = await twitchService.getToken();
   const tokens = (await resTokens.json()) as GetTokenType;
   const streamersFromDB = await getStreamers();
