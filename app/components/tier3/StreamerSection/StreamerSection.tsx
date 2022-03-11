@@ -1,10 +1,10 @@
 import { Flex, Heading, VisuallyHidden } from '@chakra-ui/react';
 import { useLoaderData } from 'remix';
+
 import { Section } from '../../tier0';
 import { StreamerCard } from '../../tier2';
-import type { StreamerCardProps } from '../../tier2';
 import type { StreamersType } from '~/routes';
-import { UserType } from '~/services/twitch/twitch';
+import type { UserType } from '~/services/twitch/twitch';
 
 type StreamersUsersType = (StreamersType[0] & UserType)[];
 
