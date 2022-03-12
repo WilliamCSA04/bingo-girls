@@ -1,3 +1,4 @@
+import { ReactText } from 'react';
 import invariant from 'tiny-invariant';
 
 invariant(process.env.TWITCH_API_HELIX, 'Missing twitch base url');
@@ -80,7 +81,7 @@ export async function getUsers(
 }
 
 type GetClipsParamsType = {
-  broadcasterId: string;
+  broadcasterId: ReactText;
 };
 
 export type ClipType = {
@@ -109,7 +110,7 @@ export async function getClips(
   { broadcasterId }: GetClipsParamsType,
   { Authorization }: HeaderType
 ): FetchReturnType {
-  const endpoint = `${BASE_URL}/clips?login=${broadcasterId}`;
+  const endpoint = `${BASE_URL}/clips?broadcaster_id=${broadcasterId}`;
   return request(endpoint, {
     headers: baseHeader({ Authorization }),
   });
