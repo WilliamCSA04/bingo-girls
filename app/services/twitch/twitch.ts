@@ -51,9 +51,18 @@ export type GetUsersType = {
   data: UserType[];
 };
 
+type HeaderType = HeadersInit & { Authorization: string };
+
+const baseHeader = (headers: HeadersInit) => {
+  return {
+    'Client-Id': CLIENT_ID,
+    ...headers,
+  };
+};
+
 export async function getUsers(
   { logins = [] }: GetUsersParamsType,
-  { Authorization }: { Authorization: string }
+  { Authorization }: HeaderType
 ): FetchReturnType {
   const url = `${BASE_URL}/users`;
   const endpoint = logins.reduce<string>((finalURL, login, index) => {
@@ -66,10 +75,7 @@ export async function getUsers(
     return appendURL.concat(`login=${login}`);
   }, '');
   return request(endpoint, {
-    headers: {
-      Authorization,
-      'Client-Id': CLIENT_ID,
-    },
+    headers: baseHeader({ Authorization }),
   });
 }
 
@@ -99,7 +105,12 @@ export type GetClipsType = {
   data: ClipType[];
 };
 
-export async function getClips({ broadcasterId }: GetClipsParamsType): FetchReturnType {
+export async function getClips(
+  { broadcasterId }: GetClipsParamsType,
+  { Authorization }: HeaderType
+): FetchReturnType {
   const endpoint = `${BASE_URL}/clips?login=${broadcasterId}`;
-  return request(endpoint);
+  return request(endpoint, {
+    headers: baseHeader({ Authorization }),
+  });
 }
