@@ -1,9 +1,10 @@
 import type { LoaderFunction } from 'remix';
+import invariant from 'tiny-invariant';
 
 import { HomeHeader, StreamerSection } from '~/components';
 import dbClient from '~/db';
 import { firebaseService, twitchService } from '~/services';
-import type { GetTokenType, GetUsersType } from '~/services/twitch/twitch';
+import type { ClipType, GetClipsType, GetTokenType, GetUsersType } from '~/services/twitch/twitch';
 
 const getStreamers = async () => {
   await dbClient.$connect();
@@ -29,9 +30,30 @@ export const loader: LoaderFunction = async () => {
     { Authorization: `Bearer ${tokens.access_token}` }
   );
   const { data: users } = (await resUsers.json()) as GetUsersType;
+  const resClips = await Promise.all(
+    users.map((user) =>
+      twitchService.getClips(
+        { broadcasterId: user.id },
+        { Authorization: `Bearer ${tokens.access_token}` }
+      )
+    )
+  );
+  const allClipsRes = await Promise.all(
+    resClips.map(async (c) => {
+      const { data } = (await c.json()) as GetClipsType;
+      return data;
+    })
+  );
+  const clips = {
+    [allClipsRes[0][0].broadcaster_name]: allClipsRes[0],
+    [allClipsRes[1][0].broadcaster_name]: allClipsRes[1],
+    [allClipsRes[2][0].broadcaster_name]: allClipsRes[2],
+  };
   return streamersFromDB.map((streamer) => {
     const foundUser = users.find((user) => user.login === streamer.twitch_name);
-    return { ...foundUser, ...streamer };
+    invariant(foundUser?.display_name);
+    const foundClips = clips[foundUser.display_name];
+    return { ...foundUser, ...streamer, clips: foundClips };
   });
 };
 
