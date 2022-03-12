@@ -2,6 +2,7 @@ import type { LoaderFunction } from 'remix';
 import invariant from 'tiny-invariant';
 
 import { HomeHeader, StreamerSection } from '~/components';
+import ClipsSection from '~/components/tier3/ClipsSection/ClipsSection';
 import dbClient from '~/db';
 import { firebaseService, twitchService } from '~/services';
 import type {
@@ -63,13 +64,15 @@ export const loader: LoaderFunction = async () => {
   });
 };
 
-export type StreamersType = (Awaited<ReturnType<typeof getStreamers>>[0] & UserType)[];
+export type StreamersType = (Awaited<ReturnType<typeof getStreamers>>[0] &
+  UserType & { clips: ClipType[] })[];
 
 export default function Index() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       <HomeHeader />
       <StreamerSection />
+      <ClipsSection />
     </div>
   );
 }

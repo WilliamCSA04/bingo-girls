@@ -1,14 +1,14 @@
 import type { ReactText } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Clip } from '~/components/tier1';
 
 type ClipType = Parameters<typeof Clip>[0];
 
 type TwitchClipType = ClipType & {
-  parent: string;
   autoplay?: boolean;
   muted?: boolean;
-  time?: string;
+  preload?: '' | 'metadata' | 'auto';
 };
 
 type AppendParameterParamsType = {
@@ -24,11 +24,18 @@ function appendParameter({ key, value }: AppendParameterParamsType) {
 }
 
 export default function TwitchClip(props: TwitchClipType) {
-  const { autoplay, muted, time, ...rest } = props;
+  const { autoplay, muted, ...rest } = props;
+  const [hostname, setHostname] = useState('');
+  useEffect(() => {
+    const hostname = window?.location?.hostname;
+    setHostname(hostname);
+  }, []);
+  if (!hostname) {
+    return null;
+  }
   rest.src +=
-    appendParameter({ key: 'parent', value: window.location.hostname }) +
+    appendParameter({ key: 'parent', value: hostname }) +
     appendParameter({ key: 'autoplay', value: autoplay }) +
-    appendParameter({ key: 'muted', value: muted }) +
-    appendParameter({ key: 'time', value: time });
-  return <Clip {...rest} />;
+    appendParameter({ key: 'muted', value: muted });
+  return <Clip preload="metadata" width="400px" height="300px" {...rest} />;
 }
