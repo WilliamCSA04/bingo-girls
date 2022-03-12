@@ -4,12 +4,9 @@ import { useLoaderData } from 'remix';
 import { Section } from '../../tier0';
 import { StreamerCard } from '../../tier2';
 import type { StreamersType } from '~/routes';
-import type { UserType } from '~/services/twitch/twitch';
-
-type StreamersUsersType = (StreamersType[0] & UserType)[];
 
 export default function StreamerSection() {
-  const streamers = useLoaderData<StreamersUsersType>();
+  const streamers = useLoaderData<StreamersType>();
   const data =
     streamers?.map((streamer) => ({
       name: streamer.name,

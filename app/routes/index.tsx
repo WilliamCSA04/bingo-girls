@@ -4,7 +4,13 @@ import invariant from 'tiny-invariant';
 import { HomeHeader, StreamerSection } from '~/components';
 import dbClient from '~/db';
 import { firebaseService, twitchService } from '~/services';
-import type { ClipType, GetClipsType, GetTokenType, GetUsersType } from '~/services/twitch/twitch';
+import type {
+  ClipType,
+  GetClipsType,
+  GetTokenType,
+  GetUsersType,
+  UserType,
+} from '~/services/twitch/twitch';
 
 const getStreamers = async () => {
   await dbClient.$connect();
@@ -57,7 +63,7 @@ export const loader: LoaderFunction = async () => {
   });
 };
 
-export type StreamersType = Awaited<ReturnType<typeof getStreamers>>;
+export type StreamersType = (Awaited<ReturnType<typeof getStreamers>>[0] & UserType)[];
 
 export default function Index() {
   return (
