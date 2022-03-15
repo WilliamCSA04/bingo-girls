@@ -1,4 +1,4 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, useColorModeValue } from '@chakra-ui/react';
 
 import { Section } from '../../tier0';
 
@@ -9,10 +9,11 @@ type PropsType = {
 };
 
 export default function HomeSection({ children, title, isColored }: PropsType) {
+  const bg = useColorModeValue('pink.500', 'gray.700');
   return (
-    <Section bg={isColored ? 'pink.500' : 'transparent'}>
-      <Heading>{title}</Heading>
-      <Flex justify="space-around" wrap="wrap">
+    <Section color="white" bg={isColored ? bg : 'transparent'} mt="16" p="12">
+      <Heading mb="8">{title}</Heading>
+      <Flex justify="space-between" wrap="wrap">
         {children}
       </Flex>
     </Section>
