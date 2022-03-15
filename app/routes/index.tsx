@@ -1,8 +1,7 @@
 import type { LoaderFunction } from 'remix';
 import invariant from 'tiny-invariant';
 
-import { HomeHeader, StreamerSection } from '~/components';
-import ClipsSection from '~/components/tier3/ClipsSection/ClipsSection';
+import { HomeHeader, StreamerSection, ClipsSection } from '~/components';
 import dbClient from '~/db';
 import { firebaseService, twitchService } from '~/services';
 import type {
